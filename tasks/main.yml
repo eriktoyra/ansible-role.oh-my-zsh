@@ -1,0 +1,14 @@
+---
+
+- name: oh-my-zsh
+- block:
+  - homebrew:
+    name: zsh
+    state: present
+
+  - homebrew:
+    name: zsh-completions
+    state: present
+
+  tags:
+    - oh_my_zsh
