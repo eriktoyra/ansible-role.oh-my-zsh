@@ -2,14 +2,22 @@
 
 - name: oh-my-zsh
   block:
-  - name: Install Oh My ZSH via Homebrew
+  - name: Install ZSH via Homebrew
     homebrew:
       name: zsh
       state: present
 
-  - name: Install Oh My ZSH completions via Homebrew
+  - name: Install ZSH completions via Homebrew
     homebrew:
       name: zsh-completions
       state: present
+  
+  - name: Test if Oh My ZSH is installed
+    stat:
+      path: ~/.oh-my-zsh
+    register: oh_my_zsh_dir
+  - name: Install Oh My ZSH
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    when: oh_my_zsh_dir.stat.isdir is undefined
 
   tags: oh_my_zsh
